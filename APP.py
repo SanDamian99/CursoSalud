@@ -16,8 +16,8 @@ Esta aplicación permite explorar las correlaciones entre:
 """)
 
 # Cargar la base de datos desde el repositorio local
-data_path = "Resultados Indicadores de Bienestar y Salud Mental en el Mundo del Trabajo (1).xlsx"
-df = pd.read_excel(data_path)
+data_path = "cleaned_data.csv"
+df = pd.read_csv(data_path)
 
 st.subheader("Vista Previa de los Datos")
 st.dataframe(df.head())
