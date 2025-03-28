@@ -16,7 +16,7 @@ Esta aplicación permite explorar las correlaciones entre:
 """)
 
 # Cargar la base de datos desde el repositorio local
-data_path = "cleaned_data.csv"
+data_path = "cleaned_data - cleaned_data.csv"
 df = pd.read_csv(data_path)
 
 st.subheader("Vista Previa de los Datos")
