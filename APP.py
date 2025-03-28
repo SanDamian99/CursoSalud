@@ -16,7 +16,7 @@ Esta aplicación permite explorar las correlaciones entre:
 """)
 
 # Cargar la base de datos desde el repositorio local
-data_path = "cleaned_data - cleaned_data.csv"
+data_path = "cleaned_data.csv"
 df = pd.read_csv(data_path)
 
 st.subheader("Vista Previa de los Datos")
@@ -105,13 +105,17 @@ for dim, cols in dimensiones.items():
     else:
         st.info(f"No se encontraron ítems para la dimensión: {dim}")
 
-# Calcular puntaje (media) por dimensión para cada registro
+# Calcular puntaje (media) por dimensión para cada registro, usando solo columnas numéricas
 puntajes = pd.DataFrame()
 for dim, cols in dimensiones.items():
     if cols:
-        # Se asume que los ítems son numéricos
-        puntajes[dim] = df[cols].mean(axis=1)
-        
+        # Seleccionar únicamente las columnas numéricas para evitar errores
+        numeric_cols = df[cols].select_dtypes(include=['number']).columns.tolist()
+        if numeric_cols:
+            puntajes[dim] = df[numeric_cols].mean(axis=1)
+        else:
+            st.info(f"Para la dimensión {dim} no se encontraron columnas numéricas.")
+
 st.markdown("### Vista de Puntajes por Dimensión")
 st.dataframe(puntajes.head())
 
